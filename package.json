@@ -14,11 +14,13 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^24.7.2",
+    "@types/pg": "^8.15.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
+    "pg": "^8.16.3",
     "serpapi": "^2.2.1"
   }
 }
