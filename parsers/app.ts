@@ -1,11 +1,9 @@
 import * as Dotenv from "dotenv";
 import process from "process";
-import { config, getJson } from "serpapi";
+import { getJson } from "serpapi";
 
 Dotenv.config();
 const apiKey = process.env.API_KEY;
-
-const searchTerms: string[] = ['"QA Engineer"', '"remote"'];
 
 const positionTitles: string[] = ['"QA Engineer"', '"Quality Engineer"', '"Automation Engineer"'];
 
@@ -15,37 +13,41 @@ const toolsMentioned: string[] = ['"Playwright"', '"Cypress"'];
 
 const toolsMentionedQuery: string = '(' + toolsMentioned.join(' OR ') + ')';
 
-const includeSites: string[] = ['jobs.lever.co', 'recruitee.com', 'workable.com', 'greenhouse.io', 'jobvite.com', 'bamboohr.com', 'ashbyhq.com', 'applytojob.com', 'comeet.com', 'pinpointhq.com', 'trakstar.com', 'breezy.hr', 'trinethire.com'];
+const includeSites: string[] = ['jobs.lever.co', 'recruitee.com', 'workable.com', 'greenhouse.io', 'jobvite.com', 'bamboohr.com', 'ashbyhq.com', 'applytojob.com', 'comeet.com', 'pinpointhq.com', 'trakstar.com', 'breezy.hr', 'trinethire.com', 'linkedin.com'];
 
 const includeSitesQuery: string = '(' + includeSites.map(site => `site:${site}`).join(' OR ') + ')';
 
-const q: string = searchTerms.join(' AND ') + ' ' + includeSites.map(site => `site:${site}`).join(' OR ');
-
 const finalQuery = [positionTitlesQuery, toolsMentionedQuery, includeSitesQuery ].join(' ');
-// const finalQuery = [positionTitlesQuery, includeSitesQuery ].join(' ');
 
 console.log('finalQuery:', finalQuery);
-console.log('q:', q)
+
+// Pagination loop
+const numPerPage = 10; // Google typically returns 10 results per page
+const totalPages = 3;  // Fetch first 3 pages
+const allResults: any[] = [];
 
 
+for (let i = 0; i < totalPages; i++) {
+  const params = {
+    engine: "google",
+    q: finalQuery,
+    as_qdr: "d10",
+    as_eq: "India, Philippines, Bengaluru, Hyderabad, On-site",
+    api_key: apiKey,
+    start: i * numPerPage, // 0 for first page, 10 for second, 20 for third
+  };
 
-const params = {
-  engine: "google",
-  q: finalQuery,
-  as_qdr: "m1",
-  as_eq: "India, Philippines, Bengaluru, Hyderabad",
-  api_key: apiKey,
-  start: 20,
-};
 
-// Show result as JSON (async/await)
-const response1 = await getJson(params);
-console.log(response1["organic_results"]);
+  // Fetch results for this page
+  const response = await getJson(params);
+  const results = response.organic_results || [];
+  allResults.push(...results);
+}
 
-// Show result as JSON (callback)
-getJson(params, (json) => console.log(json["organic_results"]));
 
-// // Use global config
-// config.api_key = apiKey;
-// const response2 = await getJson({ engine: "google", q: "Coffee" });
-// console.log(response2["organic_results"]);
+// --- Log all results ---
+console.log(`Fetched ${allResults.length} results across ${totalPages} pages.`);
+allResults.forEach((r, idx) => {
+  // console.log(`Result ${{idx + 1}: ${r.title} - ${r.link}}`);
+  console.log(`Result ${idx + 1}: ${JSON.stringify(r, null, 2)}`);
+});
