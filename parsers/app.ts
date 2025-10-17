@@ -27,7 +27,7 @@ console.log('finalQuery:', finalQuery);
 
 // Pagination loop
 const numPerPage = 10; // Google typically returns 10 results per page
-const totalPages = 5;  // Fetch first 3 pages
+const totalPages = 5;  // Fetch first 5 pages
 const allResults: any[] = [];
 
 
