@@ -4,7 +4,8 @@ export function extractCompany(link: string): string | null {
   const patterns: Record<string, RegExp> = {
     'jobs.lever.co': /jobs\.lever\.co\/([^/]+)/, // path after jobs.lever.co/
     'recruitee.com': /https?:\/\/([^.]+)\.recruitee\.com/, // subdomain
-    'jobs.workable.com': /jobs\.workable\.com(?:\/[^/]+)?\/view\/[^/]+\/.+?-at-([^/?]+).*/,
+    'jobs.workable.com':
+      /jobs\.workable\.com(?:\/[^/]+)?\/view\/[^/]+\/.+?-at-([^/?]+).*/,
     'apply.workable.com': /apply\.workable\.com\/([^/]+)/, // path after apply.workable.com/
     'greenhouse.io': /greenhouse\.io\/([^/]+)/, // path after greenhouse.io/
     'jobvite.com': /jobs\.jobvite\.com\/([^/]+)\/job\//, // company in path segment
@@ -28,7 +29,7 @@ export function extractCompany(link: string): string | null {
   return null;
 }
 
-// TODO(dina): migrate to another dedicated test file 
+// TODO(dina): migrate to another dedicated test file
 // console.log('lever:', extractCompany('https://jobs.lever.co/Mediafly/8154f624-5de5-42af-b4b0-9ad048eb0c47'))
 // console.log('========')
 // console.log('recruitee:', extractCompany('https://tether.recruitee.com/o/senior-qa-engineer-remote-dubai'))

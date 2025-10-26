@@ -1,11 +1,13 @@
 {
-  "name": "job-parser",
+  "name": "job-posts-scraper",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "start": "node parsers/app.ts"
+    "start": "node scripts/app.ts",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "type": "module",
   "keywords": [],
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^24.7.2",
     "@types/pg": "^8.15.5",
+    "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },

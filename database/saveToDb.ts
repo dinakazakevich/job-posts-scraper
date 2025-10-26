@@ -1,6 +1,6 @@
-import * as Dotenv from "dotenv";
-import { Pool } from "pg";
-import { extractCompany } from "../utils/extractCompany.ts";
+import * as Dotenv from 'dotenv';
+import { Pool } from 'pg';
+import { extractCompany } from '../utils/extractCompany.ts';
 
 Dotenv.config();
 const pgPassword = process.env.PG_PASSWORD;
@@ -23,10 +23,10 @@ async function saveResults(allResults: any[], pool: Pool) {
           company || null,
           r.location || null,
           r.source || null,
-        ]
+        ],
       );
     } catch (err) {
-      console.error("Error inserting:", err);
+      console.error('Error inserting:', err);
     }
   }
   console.log(`Inserted ${allResults.length} results into the database.`);
@@ -35,8 +35,8 @@ async function saveResults(allResults: any[], pool: Pool) {
 export async function saveToDb(allResults: any[]) {
   const pool = new Pool({
     user: pgUser,
-    host: "localhost",
-    database: "job_results",
+    host: 'localhost',
+    database: 'job_results',
     password: pgPassword,
     port: 5432,
   });
@@ -47,5 +47,3 @@ export async function saveToDb(allResults: any[]) {
   // --- Close PostgreSQL connection ---
   await pool.end();
 }
-
-

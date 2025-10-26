@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
 
 export const getExample = (req: Request, res: Response) => {
-  res.json({ message: 'Hello from example route!' });
+  res.json({ message: 'Hello there from example route!' });
 };
