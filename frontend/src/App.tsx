@@ -81,7 +81,12 @@ function App() {
                 console.log('Rendering job:', job); // Added console log here
                 return (
                   <ListItem key={job.id} disablePadding>
-                    <a href={job.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <a
+                      href={job.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="job-link" // Keep this class
+                    >
                       <Typography variant="body1" sx={{ '&:hover': { textDecoration: 'underline' } }}>
                         {job.title}
                       </Typography>
