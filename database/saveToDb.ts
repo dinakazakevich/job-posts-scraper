@@ -7,10 +7,11 @@ const pgPassword = process.env.PG_PASSWORD;
 const pgUser = process.env.PG_USER;
 
 async function saveResults(allResults: any[], pool: Pool) {
+  let insertedCount = 0; // Initialize a counter for successfully inserted records
   for (const r of allResults) {
     const company = r.company ?? extractCompany(r.link);
     try {
-      await pool.query(
+      const result = await pool.query( // Store the result of the query
         `INSERT INTO job_posts 
           (title, link, snippet, position, company, location, source)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -25,11 +26,14 @@ async function saveResults(allResults: any[], pool: Pool) {
           r.source || null,
         ],
       );
+      if (result.rowCount === 1) { // Check if a row was actually inserted
+        insertedCount++;
+      }
     } catch (err) {
       console.error('Error inserting:', err);
     }
   }
-  console.log(`Inserted ${allResults.length} results into the database.`);
+  console.log(`Successfully inserted ${insertedCount} new results into the database.`); // Use the new counter
 }
 
 export async function saveToDb(allResults: any[]) {

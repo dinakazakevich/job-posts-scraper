@@ -20,8 +20,22 @@ PostgreSQL database, and I'm currently still working out the React frontend.
 
 > LIMITATIONS: Using custom inputs for search query and exclude query is not yet supported yet. 
 
+### Set up a local database instance using a script
 
-## Database Setup
+Make `database/setup_db.sh` executable: Open your terminal, navigate to the project root (job-posts-scraper), and run:
+
+```bash
+chmod +x database/setup_db.sh
+```
+Run the script: From the project root, execute the script:
+
+```bash 
+./database/setup_db.sh
+```
+The script will prompt you for the username and password.
+
+
+## Setup Database Manually 
 
 This project uses PostgreSQL to store job post data. Follow these steps to set up a local PostgreSQL instance:
 

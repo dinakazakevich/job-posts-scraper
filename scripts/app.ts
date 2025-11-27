@@ -5,7 +5,7 @@ import { Pool } from 'pg';
 import { saveToDb } from '../database/saveToDb.ts';
 
 Dotenv.config();
-const apiKey = process.env.API_KEY;
+const apiKey = process.env.SERPAPI_API_KEY;
 const pgPassword = process.env.PG_PASSWORD;
 const pgUser = process.env.PG_USER;
 
