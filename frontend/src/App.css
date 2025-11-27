@@ -30,11 +30,11 @@
 
 .job-link {
   text-decoration: none;
-  color: inherit; /* Set default link color to inherit from parent */
+  color: inherit;
 }
 
 .job-link:visited {
-  color: #808080; /* This should now apply to visited links */
+  color: #808080; 
 }
 
 @keyframes App-logo-spin {
