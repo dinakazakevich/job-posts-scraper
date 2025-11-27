@@ -16,9 +16,9 @@
 input. Designed for the community of 7K remote workers that I run on Telegram. 
 
 > WORK-IN-PROGRESS: I have added the underlying script, an Express.js backend, a
-gSQL database, and I'm currently still working out the React frontend.
+PostgreSQL database, and I'm currently still working out the React frontend.
 
-> LIMITATIONS: Using custom inputs for search query and exclude query is not yet supported but I'm planing to add that in the near future. ## 
+> LIMITATIONS: Using custom inputs for search query and exclude query is not yet supported yet. 
 
 Author 
 
