@@ -8,7 +8,6 @@ import {
   Typography,
   List,
   ListItem,
-  Link,
   CircularProgress,
   Box,
   AppBar,
@@ -21,7 +20,7 @@ interface JobPost {
   id: number;
   title: string;
   company: string;
-  url: string;
+  link: string;
 }
 
 function App() {
@@ -78,15 +77,18 @@ function App() {
               Available Job Posts
             </Typography>
             <List>
-              {jobPosts.map((job) => (
-                <ListItem key={job.id} disablePadding>
-                  <Link href={job.url} target="_blank" rel="noopener noreferrer" underline="hover">
-                    <Typography variant="body1">
-                      {job.title} at {job.company}
-                    </Typography>
-                  </Link>
-                </ListItem>
-              ))}
+              {jobPosts.map((job) => {
+                console.log('Rendering job:', job); // Added console log here
+                return (
+                  <ListItem key={job.id} disablePadding>
+                    <a href={job.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Typography variant="body1" sx={{ '&:hover': { textDecoration: 'underline' } }}>
+                        {job.title}
+                      </Typography>
+                    </a>
+                  </ListItem>
+                );
+              })}
             </List>
           </Box>
         )}
