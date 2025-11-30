@@ -17,7 +17,7 @@ const positionTitles: string[] = [
 
 const positionTitlesQuery: string = '(' + positionTitles.join(' OR ') + ')';
 
-const toolsMentioned: string[] = ['"Playwright"', '"Cypress"'];
+const toolsMentioned: string[] = ['"Playwright"', '"Cypress"', '"XCUITest'];
 
 const toolsMentionedQuery: string = '(' + toolsMentioned.join(' OR ') + ')';
 
@@ -59,7 +59,7 @@ for (let i = 0; i < totalPages; i++) {
     q: finalQuery,
     as_qdr: 'd30',
     as_eq:
-      'Georgia, Tbilisi, Serbia, Armenia, Yerevan, India, Philippines, Bengaluru, Hyderabad, On-site, Hybrid, PHP',
+      'Georgia, Tbilisi, Serbia, Armenia, Yerevan, India, Philippines, Bengaluru, Hyderabad, On-site, Hybrid, PHP, Java, Python',
     api_key: apiKey,
     start: i * numPerPage, // 0 for first page, 10 for second, 20 for third
   };
