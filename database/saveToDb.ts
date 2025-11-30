@@ -13,7 +13,7 @@ async function saveResults(allResults: any[], pool: Pool) {
     try {
       const result = await pool.query( // Store the result of the query
         `INSERT INTO job_posts 
-          (title, link, snippet, position, company, location, source)
+          (title, link, snippet, position, company, location, source, archived)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT (link) DO NOTHING`,
         [
