@@ -58,7 +58,9 @@ psql -U "$PG_USER" -d job_results -c "CREATE TABLE IF NOT EXISTS job_posts (
     company VARCHAR(255),
     location VARCHAR(255),
     source VARCHAR(255),
+    archived BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    
 );"
 if [ $? -ne 0 ]; then
     echo "Failed to create 'job_posts' table. Please check the SQL command or user permissions."

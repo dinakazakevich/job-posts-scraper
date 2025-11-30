@@ -14,7 +14,7 @@ async function saveResults(allResults: any[], pool: Pool) {
       const result = await pool.query( // Store the result of the query
         `INSERT INTO job_posts 
           (title, link, snippet, position, company, location, source)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT (link) DO NOTHING`,
         [
           r.title || null,
@@ -24,6 +24,7 @@ async function saveResults(allResults: any[], pool: Pool) {
           company || null,
           r.location || null,
           r.source || null,
+          r.archived || false,
         ],
       );
       if (result.rowCount === 1) { // Check if a row was actually inserted

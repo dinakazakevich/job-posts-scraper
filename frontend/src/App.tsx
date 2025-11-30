@@ -12,6 +12,7 @@ import {
   Box,
   AppBar,
   Toolbar,
+  IconButton,
 } from '@mui/material';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 
@@ -21,6 +22,7 @@ interface JobPost {
   title: string;
   company: string;
   link: string;
+  archived: boolean;
 }
 
 function App() {
@@ -47,6 +49,32 @@ function App() {
     fetchJobPosts();
   }, []);
 
+  const displayedJobPosts = jobPosts.filter(job => !job.archived);
+
+
+  const archiveJob = async (id: number) => {
+    try {
+      const response = await fetch(`/api/jobs/${id}/archive`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // No body needed for a simple archive action, but you could send { archived: true }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const updatedJob = await response.json(); 
+      setJobPosts((prevJobPosts) =>
+        prevJobPosts.map((job) => 
+        job.id === id ? {...job, archived: updatedJob.archived }: job)
+    );
+    } catch (error: any) {
+      console.error('Error archiving job:', error)
+      setError('Failed to archive job. Please try again/')
+    }
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -77,6 +105,38 @@ function App() {
               Available Job Posts
             </Typography>
             <List>
+              {displayedJobPosts.length === 0 && (
+                <Typography variant="body1" sx={{ mt: 2 }}>
+                  No available job posts.
+                </Typography>
+              )}
+              {displayedJobPosts.map((job) => {
+                console.log('Rendering job:', job); // Added console log here
+                return (
+                  <ListItem key={job.id} disablePadding>
+                    <a
+                      href={job.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="job-link" // Keep this class
+                    >
+                      <Typography variant="body1" sx={{ '&:hover': { textDecoration: 'underline' } }}>
+                        {job.title}
+                      </Typography>
+                    </a>
+                    <IconButton
+                      edge="end"
+                      aria-label="archive job"
+                      onClick={() => archiveJob(job.id)}
+                      sx={{ ml: 1}}
+                    >📥
+                    </IconButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+            {/* TODO(dina): Reuse this code to add a view for all archived jobs 
+            <List>
               {jobPosts.map((job) => {
                 console.log('Rendering job:', job); // Added console log here
                 return (
@@ -91,10 +151,17 @@ function App() {
                         {job.title}
                       </Typography>
                     </a>
+                    <IconButton
+                      edge="end"
+                      aria-label="archive job"
+                      onClick={() => archiveJob(job.id)}
+                      sx={{ ml: 1}}
+                    >📥
+                    </IconButton>
                   </ListItem>
                 );
               })}
-            </List>
+            </List> */}
           </Box>
         )}
       </Container>
