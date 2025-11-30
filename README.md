@@ -20,14 +20,15 @@ PostgreSQL database, and I'm currently still working out the React frontend.
 
 > LIMITATIONS: Using custom inputs for search query and exclude query is not yet supported yet. 
 
-### Set up a local database instance using a script
+## Set up a local database instance using a script
 
-Make `database/setup_db.sh` executable: Open your terminal, navigate to the project root (job-posts-scraper), and run:
+1. Make `database/setup_db.sh` executable: Open your terminal, navigate to the project root (job-posts-scraper), and run:
 
-```bash
-chmod +x database/setup_db.sh
-```
-Run the script: From the project root, execute the script:
+  ```bash
+  chmod +x database/setup_db.sh
+  ```
+
+2. Run the script: From the project root, execute the script:
 
 ```bash 
 ./database/setup_db.sh
@@ -35,7 +36,36 @@ Run the script: From the project root, execute the script:
 The script will prompt you for the username and password.
 
 
-## Setup Database Manually 
+## Install dependencies in the root of the project 
+
+```bash
+npm install
+```
+## Configure Environment Variables
+
+Create a .env file in the root of the project to store your credentials.
+
+```
+DATABASE_URL=postgresql://your_pg_user:your_pg_password@localhost:5432/job_results
+PG_USER=your_pg_user
+PG_PASSWORD=your_pg_password
+SERPAPI_API_KEY=your_serpapi_api_key
+```
+
+Replace `your_pg_user` and `your_pg_password` with the credentials you configured (or postgres if you are using the default user). Replace `your_serpapi_api_key` with your SerpAPI key. 
+
+
+## Start the Development Server
+
+```bash
+npm run dev
+```
+Again from the root of the project 
+This will start all the services: backend, frontend
+Data saved in the database will persist between runs 
+
+
+## Optionally: Setup Database Manually 
 
 This project uses PostgreSQL to store job post data. Follow these steps to set up a local PostgreSQL instance:
 
@@ -95,21 +125,9 @@ CREATE TABLE IF NOT EXISTS job_posts (
     company VARCHAR(255),
     location VARCHAR(255),
     source VARCHAR(255),
+    archived BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 \q
 ```
 The `link` column is set to UNIQUE to prevent duplicate job posts.
-
-### 5. Configure Environment Variables
-
-Create a .env file in the root of the project to store your PostgreSQL credentials.
-
-```
-DATABASE_URL=postgresql://your_pg_user:your_pg_password@localhost:5432/job_results
-PG_USER=your_pg_user
-PG_PASSWORD=your_pg_password
-```
-
-Replace `your_pg_user` and `your_pg_password` with the credentials you configured (or postgres if you are using the default user).
-
