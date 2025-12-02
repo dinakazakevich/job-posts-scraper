@@ -75,7 +75,7 @@ for (let i = 0; i < totalPages; i++) {
     q: finalQuery,
     as_qdr: 'd30',
     as_eq:
-      'Georgia, Tbilisi, Serbia, Belgrade, Armenia, Yerevan, Belarus, Minks, Moldova, India, Bengaluru, Hyderabad, Philippines, Vietnam, Hybrid, On-site, Onsite',
+      'Georgia, Tbilisi, Serbia, Belgrade, Armenia, Yerevan, Belarus, Minks, Moldova, India, Bengaluru, Hyderabad, Gurugram, Philippines, Vietnam, Pakistan, Hybrid, On-site, Onsite',
     api_key: apiKey,
     start: i * numPerPage, // 0 for first page, 10 for second, 20 for third
   };
