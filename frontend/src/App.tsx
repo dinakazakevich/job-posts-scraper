@@ -102,7 +102,7 @@ function App() {
         {!loading && !error && (
           <Box>
             <Typography variant="h4" component="h2" gutterBottom>
-              Available Job Posts
+              Available Job Posts ({displayedJobPosts.length})
             </Typography>
             <List>
               {displayedJobPosts.length === 0 && (

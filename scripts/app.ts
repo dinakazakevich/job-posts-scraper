@@ -13,13 +13,26 @@ const positionTitles: string[] = [
   '"QA Engineer"',
   '"Quality Engineer"',
   '"Automation Engineer"',
+  '"SDET"',
+  '"Software Development Engineer in Test"'
 ];
 
 const positionTitlesQuery: string = '(' + positionTitles.join(' OR ') + ')';
 
-const toolsMentioned: string[] = ['"Playwright"', '"Cypress"', '"XCUITest'];
+const toolsMentioned: string[] = ['"Playwright"', '"Cypress"', '"XCUITest"'];
 
 const toolsMentionedQuery: string = '(' + toolsMentioned.join(' OR ') + ')';
+
+const remoteOptions: string[] = [
+  '"fully remote"',
+  '"remote-first"',
+  '"worldwide"',
+  '"any location"',
+  '"anywhere in the world"',
+  '"distributed team"'
+]
+
+const remoteOptionQuery: string = '(' + remoteOptions.join(' OR ') + ')';
 
 const includeSites: string[] = [
   'jobs.lever.co',
@@ -35,6 +48,8 @@ const includeSites: string[] = [
   'trakstar.com',
   'breezy.hr',
   'trinethire.com',
+  'icims.com',
+  'smartrecruiters.com'
 ];
 
 const includeSitesQuery: string =
@@ -44,13 +59,14 @@ const finalQuery = [
   positionTitlesQuery,
   toolsMentionedQuery,
   includeSitesQuery,
+  remoteOptionQuery,
 ].join(' ');
 
 console.log('finalQuery:', finalQuery);
 
 // Pagination loop
 const numPerPage = 10; // Google typically returns 10 results per page
-const totalPages = 20; // Fetch first 5 pages
+const totalPages = 10; // Fetch first 5 pages
 const allResults: any[] = [];
 
 for (let i = 0; i < totalPages; i++) {
@@ -59,7 +75,7 @@ for (let i = 0; i < totalPages; i++) {
     q: finalQuery,
     as_qdr: 'd30',
     as_eq:
-      'Georgia, Tbilisi, Serbia, Armenia, Yerevan, India, Philippines, Bengaluru, Hyderabad, On-site, Hybrid, PHP, Java, Python',
+      'Georgia, Tbilisi, Serbia, Belgrade, Armenia, Yerevan, Belarus, Minks, Moldova, India, Bengaluru, Hyderabad, Gurugram, Philippines, Vietnam, Pakistan, Hybrid, On-site, Onsite',
     api_key: apiKey,
     start: i * numPerPage, // 0 for first page, 10 for second, 20 for third
   };

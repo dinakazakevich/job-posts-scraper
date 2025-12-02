@@ -17,6 +17,8 @@ export function extractCompany(link: string): string | null {
     'trakstar.com': /https?:\/\/([^.]+)\.hire\.trakstar\.com/, // subdomain before .hire.trakstar.com
     'breezy.hr': /https?:\/\/([^.]+)\.breezy\.hr/, // subdomain
     'trinethire.com': /trinethire\.com\/companies\/(?:\d+-)?([^/]+)\//, // company in path, omit id
+    'icims.com': /https?:\/\/([^.]+)\.icims\.com/, // subdomain
+    'smartrecruiters.com': /smartrecruiters\.com\/([^/]+)/, // company in path after smartrecruiters.com/ (handles www and jobs subdomains implicitly)
   };
 
   for (const [domain, regex] of Object.entries(patterns)) {
